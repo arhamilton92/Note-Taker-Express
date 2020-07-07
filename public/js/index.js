@@ -1,3 +1,5 @@
+console.log("I'm working!");
+
 const $noteTitle = $(".note-title");
 const $noteText = $(".note-textarea");
 const $saveNoteBtn = $(".save-note");
@@ -51,6 +53,7 @@ const renderActiveNote = () => {
 
 // Get the note data from the inputs, save it to the db and update the view
 const handleNoteSave = function () {
+  console.log('save button clicked');
   const newNote = {
     title: $noteTitle.val(),
     text: $noteText.val(),
@@ -140,7 +143,7 @@ const getAndRenderNotes = () => {
   return getNotes().then(renderNoteList);
 };
 
-$saveNoteBtn.on("click", handleNoteSave);
+$saveNoteBtn.on("click", (handleNoteSave));
 $noteList.on("click", ".list-group-item", handleNoteView);
 $newNoteBtn.on("click", handleNewNoteView);
 $noteList.on("click", ".delete-note", handleNoteDelete);
