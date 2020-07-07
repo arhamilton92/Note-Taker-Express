@@ -2,6 +2,7 @@
 // DEPENDENCIES =======================================
 const noteData = require("./db/db.json");
 const fs = require("fs");
+let newId = 1;
 // =================================================================^
 
 
@@ -13,19 +14,20 @@ module.exports = (app) => {
   });
 
   app.post("/api/notes", (req, res) => {
-    fs.readFile(__dirname + "/db/db.json", "utf8", (err, data) => {
-        if (err) throw err;
         //variables to parse new data from JSON and set ids for new notes
         const newNote = req.body;
+        
+        for (i = 0; i < noteData.length; i++) {
+          newId++;
+        }
+        newNote.id = newId
         console.log("req.body ", req.body)
-        newNote.id = biggestId + 1;
-        jsonData.push(newNote)
+        noteData.push(newNote)
         //write new
-        fs.writeFile(__dirname + "/db/db.json", JSON.stringify(jsonData), (err, data) => {
+        fs.writeFile(__dirname + "/db/db.json", JSON.stringify(noteData), (err, data) => {
             if (err) throw err;
-            res.json(jsonData);
+            res.json(noteData);
         })
-    })
   })
 
   app.delete('/api/notes/:id', (req,res) => {
