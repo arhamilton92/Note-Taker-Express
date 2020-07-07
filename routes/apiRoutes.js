@@ -1,6 +1,6 @@
 
 // DEPENDENCIES =======================================
-const noteData = require("../db/db.json");
+const noteData = require("./db/db.json");
 const fs = require("fs");
 // =================================================================^
 
@@ -13,22 +13,23 @@ module.exports = (app) => {
   });
 
   app.post("/api/notes", (req, res) => {
-    // -- req.body hosts is equal to the JSON post sent from the user
-    let note = req.body;
-    console.log(note);
-    noteData.push(note);
-    res.json(true);
-
-    fs.writeFile("/../db/db.json", JSON.stringify(noteData), "utf8", (err) => {
-          if (err) {
-              return res.send("No data");
-          }
-          res.json(noteData);
-          console.log('added note')
-    });
-  });
+    fs.readFile(__dirname + "/db/db.json", "utf8", (err, data) => {
+        if (err) throw err;
+        //variables to parse new data from JSON and set ids for new notes
+        const newNote = req.body;
+        console.log("req.body ", req.body)
+        newNote.id = biggestId + 1;
+        jsonData.push(newNote)
+        //write new
+        fs.writeFile(__dirname + "/db/db.json", JSON.stringify(jsonData), (err, data) => {
+            if (err) throw err;
+            res.json(jsonData);
+        })
+    })
+  })
 
   app.delete('/api/notes/:id', (req,res) => {
+
   });
 }
 // =================================================================^
