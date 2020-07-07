@@ -1,8 +1,10 @@
 
 // DEPENDENCIES =======================================
-const noteData = require("./db/db.json");
+const noteData = require("../db/db.json");
 const fs = require("fs");
 let newId = 1;
+
+
 // =================================================================^
 
 
@@ -24,14 +26,29 @@ module.exports = (app) => {
         console.log("req.body ", req.body)
         noteData.push(newNote)
         //write new
-        fs.writeFile(__dirname + "/db/db.json", JSON.stringify(noteData), (err, data) => {
+        fs.writeFile("./db/db.json", JSON.stringify(noteData), (err, data) => {
             if (err) throw err;
             res.json(noteData);
         })
+        console.log(__dirname)
   })
 
-  app.delete('/api/notes/:id', (req,res) => {
-
+  app.delete("/api/notes/:id", function (req, res) {
+    fs.readFile("./db/db.json", "utf8", (err, notes) => {
+      console.log('deleting...')
+      if (err) {
+        throw err
+      }
+      
+      const newData = noteData.filter((object) => object.id != parseInt(req.params.id));
+      console.log(newData);
+      fs.writeFile("./db/db.json", JSON.stringify(newData), "utf8", (err) => {
+        if (err) {
+          return res.send("An error occured writing your data.");
+        }
+        res.json(newData);
+      });
+    });
   });
 }
 // =================================================================^
