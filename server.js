@@ -1,6 +1,7 @@
 // DEPENDENCIES =======================================
 const express = require("express");
 const path = require("path");
+const bodyParser = require("body-parser")
 // =================================================================^
 
 
@@ -10,6 +11,9 @@ let PORT = process.env.PORT || 8000;
 // // Sets up the Express app to handle data parsing
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 // =================================================================^
 
 
