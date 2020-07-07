@@ -44,7 +44,7 @@ module.exports = (app) => {
       console.log(newData);
       fs.writeFile("./db/db.json", JSON.stringify(newData), "utf8", (err) => {
         if (err) {
-          return res.send("An error occured writing your data.");
+          throw error;
         }
         res.json(newData);
       });
