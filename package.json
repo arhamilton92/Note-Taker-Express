@@ -1,5 +1,5 @@
 {
-  "name": "note-taker",
+  "name": "note-taker-express",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,9 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arhamilton92/Note-Taker-Express.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arhamilton92/Note-Taker-Express/issues"
+  },
+  "homepage": "https://github.com/arhamilton92/Note-Taker-Express#readme",
   "dependencies": {
     "express": "^4.17.1"
   }
